@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دعوة زواج</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #efe6d6; font-family: "Tajawal", sans-serif; color: #5a3a2a; overflow: hidden; }
+  .stage { position: relative; width: 100%; max-width: 420px; height: 100vh; max-height: 880px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 35%, #fbf6ec, #e6dccb); }
+  .seal-wrap { text-align: center; cursor: pointer; transition: opacity .8s, transform .8s; }
+  .seal { width: 150px; height: 150px; margin: 0 auto; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #a33b3b, #5c1218); box-shadow: 0 0 30px rgba(230,170,90,.6), inset 0 0 12px rgba(0,0,0,.35); display: flex; align-items: center; justify-content: center; color: #f5d7a0; font-size: 44px; animation: pulse 2s infinite; }
+  .hint { margin-top: 22px; font-size: 16px; color: #7a5a45; }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+  .invite { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateY(30px); transition: all 1.2s ease; pointer-events: none; }
+  .open .seal-wrap { opacity: 0; transform: scale(.6); pointer-events: none; }
+  .open .invite { opacity: 1; transform: none; pointer-events: auto; }
+  .arch { width: 300px; min-height: 460px; padding: 40px 24px; border-radius: 150px 150px 18px 18px; border: 2px solid #c9a46a; background: linear-gradient(#fbf7ee, #eadfc9); text-align: center; box-shadow: 0 10px 30px rgba(90,58,42,.2); }
+  .arch h2 { font-size: 20px; color: #8a6a3a; font-weight: 400; margin-bottom: 14px; }
+  .names { font-size: 34px; font-weight: 700; color: #6b1f26; line-height: 1.5; margin: 10px 0; }
+  .names span { display: block; font-size: 22px; color: #a07a45; }
+  .arch p { margin-top: 12px; font-size: 16px; line-height: 1.8; }
+  .date { margin-top: 16px; font-size: 16px; }
+  .count { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+  .count div { background: #fff8ea; border: 1px solid #d6b98b; border-radius: 10px; padding: 6px 8px; min-width: 58px; font-size: 20px; color: #6b1f26; }
+  .count small { display: block; font-size: 11px; color: #8a6a3a; }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="seal-wrap" onclick="document.getElementById('stage').classList.add('open')">
+    <div class="seal">♥</div>
+    <p class="hint">اضغط لفتح كرت الدعوة</p>
+  </div>
+
+  <div class="invite">
+    <div class="arch">
+      <h2>دعوة زواج</h2>
+      <div class="names">الاسم الأول<span>و</span>الاسم الثاني</div>
+      <p>يسعدنا بدعوتكم لحضور حفل الزفاف</p>
+      <p class="date">الجمعة 18 ديسمبر 2026</p>
+      <div class="count">
+        <div id="d">0<small>يوم</small></div>
+        <div id="h">0<small>ساعة</small></div>
+        <div id="m">0<small>دقيقة</small></div>
+        <div id="s">0<small>ثانية</small></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // غيّر التاريخ والوقت هنا
+  const target = new Date("2026-12-18T20:00:00+03:00").getTime();
+
+  function tick() {
+    const diff = Math.max(0, target - Date.now());
+    document.getElementById('d').innerHTML = Math.floor(diff / 86400000) + '<small>يوم</small>';
+    document.getElementById('h').innerHTML = Math.floor(diff % 86400000 / 3600000) + '<small>ساعة</small>';
+    document.getElementById('m').innerHTML = Math.floor(diff % 3600000 / 60000) + '<small>دقيقة</small>';
+    document.getElementById('s').innerHTML = Math.floor(diff % 60000 / 1000) + '<small>ثانية</small>';
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>
